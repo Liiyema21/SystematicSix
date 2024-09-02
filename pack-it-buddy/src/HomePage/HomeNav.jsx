@@ -30,44 +30,61 @@ const HomeNav = () => {
           </Link>
         </li>
         <li className="relative group">
-          <Link
-            className="px-4 cursor-pointer capitalize font-bold text-gray-800 hover:scale-105 duration-200"
-            to="/"
-          >
-            Services
-          </Link>
-          <ul className="absolute left-0 mt-2 w-48 bg-white text-gray-700 opacity-0 group-hover:opacity-100 group-hover:block hidden transition-opacity duration-200">
-            <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">Local Moving</li>
-            <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">International Moving</li>
-            <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">Packing Services</li>
-          </ul>
-        </li>
+                    <label
+                        className="px-4 cursor-pointer capitalize font-bold text-gray-800 hover:scale-105 duration-200"
+                    >
+                        Services
+                    </label>
+                    <ul className="absolute left-0 mt-2 w-48 bg-white text-gray-700 opacity-0 group-hover:opacity-100 group-hover:block hidden transition-opacity duration-200 z-50">
+                        <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">
+                            <Link to="/">Local Moving</Link>
+                        </li>
+                        <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">
+                            <Link to="/">International Moving</Link>
+                        </li>
+                        <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">
+                            <Link to="/">Packing Services</Link>
+                        </li> <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">
+                            <Link to="/"> Office Move</Link>
+                        </li> <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">
+                            <Link to="/"> Business Moving</Link>
+                        </li>
+                        
+                    </ul>
+                </li>
 
         <li className="relative group">
-          <Link
-            className="px-4 cursor-pointer capitalize font-bold text-gray-800 hover:scale-105 duration-200"
-            to="/"
-          >
-            About
-          </Link>
-          <ul className="absolute left-0 mt-2 w-48 bg-white text-gray-700 opacity-0 group-hover:opacity-100 group-hover:block hidden transition-opacity duration-200">
-            <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">Our Story</li>
-            <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">Team</li>
-          </ul>
-        </li>
+                    <label
+                        className="px-4 cursor-pointer capitalize font-bold text-gray-800 hover:scale-105 duration-200"
+                    >
+                        About
+                    </label>
+                    <ul className="absolute left-0 mt-2 w-48 bg-white text-gray-700 opacity-0 group-hover:opacity-100 group-hover:block hidden transition-opacity duration-200 z-50">
+                        <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">
+                            <Link to="/">Our Story</Link>
+                        </li>
+                        <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">
+                            <Link to="/">Team</Link>
+                        </li>
+                    </ul>
+                </li>
 
-        <li className="relative group">
-          <Link
-            className="px-4 cursor-pointer capitalize font-bold text-gray-800 hover:scale-105 duration-200"
-            to="/"
-          >
-            Contact
-          </Link>
-          <ul className="absolute left-0 mt-2 w-48 bg-white text-gray-700 opacity-0 group-hover:opacity-100 group-hover:block hidden transition-opacity duration-200">
-            <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">Location</li>
-            <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">Support</li>
-          </ul>
-        </li>
+                <li className="relative group">
+                    <label
+                        className="px-4 cursor-pointer capitalize font-bold text-gray-800 hover:scale-105 duration-200"
+                    >
+                        Contact
+                    </label>
+                    <ul className="absolute left-0 mt-2 w-48 bg-white text-gray-700 opacity-0 group-hover:opacity-100 group-hover:block hidden transition-opacity duration-200 z-50">
+                        <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">
+                            <Link to="/">Location</Link>
+                        </li>
+                        <li className="px-4 py-2 hover:bg-gray-200 shadow-sm">
+                            <Link to="/">Support</Link>
+                        </li>
+                    </ul>
+                </li>
+
 
         <label className="nav-item text-white">
           <Link className='bg-[#131a4b] font-bold px-4 rounded-md py-2' to='/SignUpFormClient'>

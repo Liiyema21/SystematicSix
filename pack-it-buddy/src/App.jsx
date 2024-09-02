@@ -8,7 +8,6 @@ import DriverHome from './DriverPages/DriverHome';
 import ClientHome from './ClientPages/ClientHome';
 import PaymentSide from './ClientPages/ClientComponents/PaymentSide';
 import GetQuote from './ClientPages/ClientComponents/GetQuote';
-import DriverHistory from './DriverPages/DriverHistory';
 import ClientHistory from './ClientPages/History/ClientHistory';
 import ClientScheduleRide from './ClientPages/History/ClientScheduleRide';
 import Deals from './ClientPages/Deals';
@@ -19,6 +18,8 @@ import Varification from './DriverPages/Varification';
 import DriverReferrals from './DriverPages/DriverReferrals';
 import DriverProfile from './DriverPages/DriverComponents/DriverProfile';
 import ClientProfile from './ClientPages/ClientComponents/ClientProfile';
+import DriverHistory from './DriverPages/History/DriverHistory';
+import ScheduledRides from './DriverPages/History/ScheduledRides';
 
 function App() {
 
@@ -34,7 +35,6 @@ function App() {
         <Route path='/ClientHome' element={<ClientHome />} />
         <Route path='/PaymentSide' element={<PaymentSide />} />
         <Route path='/GetQuote' element={<GetQuote />} />
-        <Route path='/DriverHistory' element={<DriverHistory />} />
         <Route path='/ClientHistory' element={<ClientHistory />} />
         <Route path='/ClientScheduleRide' element={<ClientScheduleRide />} />
         <Route path='/Deals' element={<Deals />} />
@@ -45,6 +45,9 @@ function App() {
         <Route path='/DriverReferrals' element={<DriverReferrals />} />
         <Route path='/DriverProfile' element={<DriverProfile />} />
         <Route path='/ClientProfile' element={<ClientProfile />} />
+        <Route path='/DriverHistory' element={<DriverHistory />} />
+        <Route path='/ScheduledRides' element={<ScheduledRides />} />
+
         
       </Routes>
 

@@ -77,7 +77,7 @@ const Home = () => {
               <li><a href="#" className="hover:underline">Local Move</a></li>
             </ul>
           </div>
-          <div>
+          <div className='px-4'>
             <h3 className="font-bold py-2">Contact Us</h3>
             <p>PackItBuddy Headquarters</p>
             <p className='text-slate-600'>138 Van Beek Street</p>

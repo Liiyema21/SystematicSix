@@ -1,6 +1,6 @@
 import React from 'react';
 import { CiHome } from "react-icons/ci";
-import DriverNav from './DriverComponents/DriverNav';
+import DriverNav from '../DriverComponents/DriverNav';
 
 const DriverHistory = () => {
     const tripHistory = JSON.parse(localStorage.getItem('acceptedRides')) || [];
