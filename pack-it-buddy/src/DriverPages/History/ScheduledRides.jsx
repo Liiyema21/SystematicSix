@@ -6,4 +6,4 @@ const ScheduledRides = () => {
   )
 }
 
-export default ScheduledRides
+export default ScheduledRides;

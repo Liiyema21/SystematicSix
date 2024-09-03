@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import backtruck from '../DriverAssets/truck4.jpg';
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
+import { auth, db } from '../../firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { ref, set } from "firebase/database";
+import backtruck from '../DriverAssets/truck4.jpg';
 
 const LogInFormDriver = () => {
   const [formData, setFormData] = useState({
@@ -27,14 +30,21 @@ const LogInFormDriver = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      console.log('Form data:', formData);
-      // Submit form data
-      navigate('/DriverHome'); // Redirect to DriverHome after successful submission
-    } else {
+      try { 
+        const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+        const user = userCredential.user;
+
+        console.log('Form data:', formData);
+        navigate('/DriverHome'); // Redirect to DriverHome after successful submission
+    } catch (error) {
+      console.error('Error logging in:', error);
+      setErrors({ firebase: error.message});
+    }
+  } else {
       setErrors(formErrors);
     }
   };

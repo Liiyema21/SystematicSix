@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import backtruck from '../ClientAssets/truck4.jpg';
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from '../../firebase';
 
 const LogInFormClient = () => {
   const [formData, setFormData] = useState({
@@ -27,13 +29,21 @@ const LogInFormClient = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
-    if (Object.keys(formErrors).length === 0) {
-      console.log('Form data:', formData);
-      // Submit form data
-      navigate('/ClientHome'); // Redirect to DriverHome after successful submission
+   if (Object.keys(formErrors).length === 0) {
+      try {
+        // Authenticate user with email and password
+        const userCredential = await signInWithEmailAndPassword(auth, formData.email, formData.password);
+        const user = userCredential.user;
+
+        console.log('User logged in:', user);
+        navigate('/ClientHome');
+      } catch (error) {
+        console.error('Error logging in:', error);
+        setErrors({ firebase: error.message });
+      }
     } else {
       setErrors(formErrors);
     }

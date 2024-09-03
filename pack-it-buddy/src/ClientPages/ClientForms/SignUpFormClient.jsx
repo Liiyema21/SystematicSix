@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import backtruck from '../ClientAssets/truck4.jpg';
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
+import { auth, db } from '../../firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { ref, set } from "firebase/database"; 
 
 const SignUpFormClient = () => {
   const [formData, setFormData] = useState({
@@ -35,13 +38,28 @@ const SignUpFormClient = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      console.log('Form data:', formData);
-      // Submit form data
-      navigate('/ClientHome'); // Redirect to ClientHome after successful submission
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        const user = userCredential.user;
+
+        // Store additional user information in Realtime Database
+        await set(ref(db, 'users/' + user.uid), {
+          firstName: formData.firstName,
+          surname: formData.surname,
+          phoneNumber: formData.phoneNumber,
+          email: formData.email
+        });
+
+        console.log('User registered:', user);
+        navigate('/ClientHome');
+      } catch (error) {
+        console.error('Error signing up:', error);
+        setErrors({ firebase: error.message });
+      }
     } else {
       setErrors(formErrors);
     }
@@ -55,11 +73,12 @@ const SignUpFormClient = () => {
             <FaArrowLeft size={25} />
           </Link>
         </div>
-        <div className=" px-4 py-4 rounded-md shadow-lg w-full h-screen max-w-md mx-auto flex-1">
+        <div className="px-4 py-4 rounded-md shadow-lg w-full h-screen max-w-md mx-auto flex-1">
           <div>
             <h1 className="py-4 text-[#131a4b] text-3xl font-bold text-center">Create an Account</h1>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Form Fields */}
             <div>
               <label className="font-medium text-gray-500">Name(s)</label>
               <input
@@ -132,24 +151,24 @@ const SignUpFormClient = () => {
               />
               {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
             </div>
-            
+
             <div className="text-center">
               <button type="submit" className="bg-[#131a4b] px-4 rounded-md text-white font-bold py-2">
-                Submit
+                Sign Up
               </button>
             </div>
             <label className='px-2'>
-                Already have an account?  
-                <Link to='/LogInFormClient' className='hover:text-amber-500 px-2 text-[#131a4b] font-semibold'>
+              Already have an account?  
+              <Link to='/LogInFormClient' className='hover:text-amber-500 px-2 text-[#131a4b] font-semibold'>
                 Log In
-                </Link>
-              </label>
+              </Link>
+            </label>
 
+            {errors.firebase && <p className="text-red-500 text-sm mt-4">{errors.firebase}</p>}
           </form>
         </div>
       </div>
 
-      {/* Right Half: Background Image */}
       <div
         className="flex-1 bg-cover bg-center h-full flex items-center justify-center"
         style={{ backgroundImage: `url(${backtruck})` }}
@@ -161,3 +180,4 @@ const SignUpFormClient = () => {
 };
 
 export default SignUpFormClient;
+

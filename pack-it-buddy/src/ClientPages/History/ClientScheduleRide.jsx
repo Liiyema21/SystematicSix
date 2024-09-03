@@ -6,4 +6,4 @@ const ClientScheduleRide = () => {
   )
 }
 
-export default ClientScheduleRide
+export default ClientScheduleRide;

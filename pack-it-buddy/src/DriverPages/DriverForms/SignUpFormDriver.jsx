@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import backtruck from '../DriverAssets/truck4.jpg';
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
+import { auth, db } from '../../firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { ref, set } from "firebase/database";
+import backtruck from '../DriverAssets/truck4.jpg';
 
 const SignUpFormDriver = () => {
   const [formData, setFormData] = useState({
@@ -35,13 +38,28 @@ const SignUpFormDriver = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      console.log('Form data:', formData);
-      // Submit form data
-      navigate('/DriverHome'); // Redirect to DriverHome after successful submission
+      try {
+       
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        const user = userCredential.user;
+
+        await set(ref(db, 'drivers/' + user.uid), {
+          firstName: formData.firstName,
+          surname: formData.surname,
+          phoneNumber: formData.phoneNumber,
+          email: formData.email,
+        });
+
+        console.log('User signed up:', user);
+        navigate('/DriverHome');
+      } catch (error) {
+        console.error('Error signing up:', error);
+        setErrors({ firebase: error.message });
+      }
     } else {
       setErrors(formErrors);
     }
@@ -136,7 +154,7 @@ const SignUpFormDriver = () => {
             
             <div className="text-center">
               <button type="submit" className="bg-[#131a4b] px-4 rounded-md text-white font-bold py-2">
-                Submit
+                Sign Up
               </button>
             </div>
             <label className='px-2'>

@@ -1,10 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { CiHome } from "react-icons/ci";
 import { Link } from 'react-router-dom';
+import { ref, onValue } from "firebase/database";
+import { db } from '../../firebase';
 import ClientNav from '../ClientComponents/ClientNav';
 
 const ClientHistory = () => {
-    const tripHistory = JSON.parse(localStorage.getItem('acceptedRides')) || [];
+  const [tripHistory, setTripHistory] = useState([]);
+
+  useEffect(() => {
+    const clientId = 'auth.currentUser.uid'; // Replace with actual client ID or fetch from authentication context
+    const tripHistoryRef = ref(db, `clients/${clientId}/tripHistory`);
+
+    // Fetching the trip history from Firebase Realtime Database
+    onValue(tripHistoryRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setTripHistory(Object.values(data)); // Convert the object into an array
+      } else {
+        setTripHistory([]); // Handle case where no trip history is available
+      }
+    });
+  }, []);
+
 
   return (
     <div>    
@@ -28,4 +46,4 @@ const ClientHistory = () => {
   )
 }
 
-export default ClientHistory
+export default ClientHistory;
